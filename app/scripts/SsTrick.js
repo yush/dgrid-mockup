@@ -1,4 +1,16 @@
 define(["dojo/_base/declare", "SsThrow"], function(declare, SsThrow){
+    /*
+     * Principe fonctionnement:
+     * Etape 1
+     * ========
+     * Une fonction affiche un tableau a partir de la description json d'un trick
+     * A chaque ajout de colonne on met à jour le json, et on réaffiche l'ensemble du tableau
+     *
+     * Etape 2
+     * =======
+     * On réinjecte dans le tableau existant que le fragment nécessaire
+     */
+
   return declare(null, {
     constructor: function(){
     	this.listThrow = [];

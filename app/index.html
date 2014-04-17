@@ -27,88 +27,67 @@
         <![endif]-->
 
 		<script>
-		require(["dojo/_base/declare", "dgrid/OnDemandGrid", "dgrid/Keyboard", "dgrid/Selection", "dgrid/extensions/CompoundColumns", "dgrid/ColumnSet", "dojo/store/Memory", "dojo/dom", "dojo/on", "dojo/domReady!"],
-			    function(declare, Grid, Keyboard, Selection, CompoundColumns, ColumnSet, Memory, Dom, On){
-			        var data = [
-			            { col0: "ssBase", col1: 3, thr1: 3, thr2: 3},
-			            { col0: "thrHand", col1: "R", thr1: "gf", thr2: "de"},
-			            { col0: "thrPos", col1: "r", thr1: "gf", thr2: "de"},
-			        ];
+		require(['dojo/_base/declare', 'dgrid/OnDemandGrid', 'dgrid/Keyboard', 'dgrid/Selection', 'dgrid/extensions/CompoundColumns', 'dgrid/ColumnSet', 'dojo/store/Memory', 'dojo/dom', 'dojo/on', 'dojo/domReady!'],
+            function(declare, Grid, Keyboard, Selection, CompoundColumns, ColumnSet, Memory, Dom, On){
 
-                    var columns = [
-                        {field: "col0", label: "colonne 0"},
-                        {field: "col1"},
-                        {label: "colonne 2", children: [
-                                {field: "thr1", label: "throw 1"},
-                                {field: "thr2", label: "throw 2"}
-                            ]},
-                    ];
+                var data = [
+                    { col0: 'ssBase', col1: 3, col2: 3, col3:3},
+                    { col0: 'thrHand', col1: 'R', col2: 'gf', col3: 'de'},
+                    { col0: 'thrPos', col1: 'r', col2: 'gf', col3: 'de'},
+                ];
 
-			        // Create a new constructor by mixing in the components
-			        var CustomGrid = declare([ Grid, Keyboard, Selection, CompoundColumns ]);
-			 
-			        // Now, create an instance of our custom grid which
-			        // have the features we added!
-			        var grid = new CustomGrid({
-                        store: new Memory({data: data}),
-			            columns: columns,
-			        }, "grid");
-			        
-			        
-			        grid.startup();
-			        On(Dom.byId("addTime"), "click", function() {
-			        	console.log("addTime");
-			        	tk.addThrow();
-			        	grid.set("columns", columns );
-			        });
+                var data2 = [
+                    { col0: 'ssBase', col1: 3, col2: 3, col3: 3, col4: 4},
+                    { col0: 'thrHand', col1: 'R', col2: 'L', col3: 'de', col4: 'L' },
+                    { col0: 'thrPos', col1: 'r', col2: 'gf', col3: 'de', col4: 'center'},
+                ];
+
+                var columns = [
+                    {field: 'col0', label: ' '},
+                    {field: 'col1', label: 'Time 1'},
+                    {label: 'Time 2', children: [
+                            {field: 'col2', label: 'throw 1'},
+                            {field: 'col3', label: 'throw 2'}
+                        ]},
+                ];
+
+                var columns2 = [
+                    {field: 'col0', label: ' '},
+                    {field: 'col1', label: 'Time 1'},
+                    {label: 'Time 2', children: [
+                            {field: 'col2', label: 'throw 1'},
+                            {field: 'col3', label: 'throw 2'}
+                        ]},
+                    {field: 'col4', label: 'Time 3'},
+                ];
+
+                // Create a new constructor by mixing in the components
+                var CustomGrid = declare([ Grid, Keyboard, Selection, CompoundColumns ]);
+         
+                // Now, create an instance of our custom grid which
+                // have the features we added!
+                var grid = new CustomGrid({
+                    store: new Memory({data: data2}),
+                    columns: columns2,
+                }, 'grid');
+                grid.startup();
+
+                On(Dom.byId('btnAddTime'), 'click', function() {
+                    console.log('addTime');
+                    grid.set('columns', columns );
+                });
 			});
 		</script>
 
         <div class="container">
-            <div class="header">
-                <ul class="nav nav-pills pull-right">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                <h3 class="text-muted">mockup</h3>
-            </div>
-
+            <button id="btnAddTime" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-star"></span>Add time 
+            </button>
             <div id="grid"></div>
-
-            <div class="row marketing">
-                <div class="col-lg-6">
-                    <h4>HTML5 Boilerplate</h4>
-                    <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-
-
-
-                    <h4>Bootstrap</h4>
-                    <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-
-
-                </div>
-            </div>
-
-            <div class="footer">
-                <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-            </div>
-
         </div>
-
 
         <!-- build:js scripts/vendor.js -->
         <!-- endbuild -->
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
 
         <!-- build:js scripts/plugins.js -->
         <script src="../bower_components/bootstrap/js/affix.js"></script>
