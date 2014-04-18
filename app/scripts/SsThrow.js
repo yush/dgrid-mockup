@@ -1,4 +1,4 @@
-define(["dojo/_base/declare"], function(declare){
+define(["script/dojo/_base/declare"], function(declare){
   return declare(null, {
     constructor: function(){
     	this.ssBase = "3";

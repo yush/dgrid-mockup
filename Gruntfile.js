@@ -78,6 +78,7 @@ module.exports = function (grunt) {
                         return [
                             connect.static('.tmp'),
                             connect().use('/bower_components', connect.static('./bower_components')),
+                            connect().use('/scripts', connect.static('./app/scripts')),
                             connect.static(config.app)
                         ];
                     }
@@ -86,6 +87,7 @@ module.exports = function (grunt) {
             test: {
                 options: {
                     open: false,
+                    hostname: 'localhost',
                     port: 9001,
                     middleware: function(connect) {
                         return [

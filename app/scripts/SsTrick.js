@@ -1,39 +1,23 @@
-define(["dojo/_base/declare", "SsThrow"], function(declare, SsThrow){
-    /*
-     * Principe fonctionnement:
-     * Etape 1
-     * ========
-     * Une fonction affiche un tableau a partir de la description json d'un trick
-     * A chaque ajout de colonne on met à jour le json, et on réaffiche l'ensemble du tableau
-     *
-     * Etape 2
-     * =======
-     * On réinjecte dans le tableau existant que le fragment nécessaire
-     */
+define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bower_components/dojo/dom-construct'], function(declare, dom, Build, SsThrow){
+    'use strict';
 
-  return declare(null, {
-    constructor: function(){
-    	this.listThrow = [];
-    },
-    
-    addThrow: function() {
-    	console.log("addThrow");
-    	t = new SsThrow();
-    	t.index = this.listThrow.length;
-    	this.listThrow.push(t);
-    	return t;
-    },
-    
-    
-   columnHeaders: function() {
-	   headers = this.listThrow.map(function(aItem){
-		   return col["col"+aItem.index] = aItem.index;
-	   });
-	   return headers;
-   },
-   
-   columnData: function() {
-       
-   },
-  });
+    return declare(null, {
+        constructor: function() {
+            this.name = '';
+            this.time = [];
+            this.properties = ['ssTime', 'ssBase', 'thrHand', 'thrPos', 'catHand', 'catPos'];
+        },
+
+        addTime: function() {
+            console.log('addThrow');
+            var aThrow = [];
+            for(var i=0; i < this.properties.length; i++) {
+                aThrow[this.properties[i]] = '';
+            }
+            this.time.push([]); 
+            this.time[this.time.length].push(aThrow);
+        },
+
+        
+    });
 });

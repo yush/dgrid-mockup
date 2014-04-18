@@ -27,54 +27,41 @@
         <![endif]-->
 
 		<script>
-		require(['dojo/_base/declare', 'dgrid/OnDemandGrid', 'dgrid/Keyboard', 'dgrid/Selection', 'dgrid/extensions/CompoundColumns', 'dgrid/ColumnSet', 'dojo/store/Memory', 'dojo/dom', 'dojo/on', 'dojo/domReady!'],
-            function(declare, Grid, Keyboard, Selection, CompoundColumns, ColumnSet, Memory, Dom, On){
+		require(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom-construct', 'bower_components/dojo/dom', 'bower_components/dojo/on', 'scripts/SsTrickView', 'scripts/SsTrick', 'bower_components/dojo/domReady!'],
+            function(declare, Builder, Dom, On, TrickView, Trick){
+                trickView = new TrickView(); 
+                tk = new Trick();
 
-                var data = [
-                    { col0: 'ssBase', col1: 3, col2: 3, col3:3},
-                    { col0: 'thrHand', col1: 'R', col2: 'gf', col3: 'de'},
-                    { col0: 'thrPos', col1: 'r', col2: 'gf', col3: 'de'},
-                ];
+                Cascade = {
+                    name: 'cascade',
+                    properties: ['ssTime', 'ssBase', 'thrHand', 'thrPos', 'catHand', 'catPos'],
+                    time: [
+                        [{'ssTime': 1, 'ssBase': 5, 'thrHand': 'R', 'thrPos': 'r', 'catHand': 'L', 'catPos': 'l'}],
+                        [{'ssTime': 2, 'ssBase': 1, 'thrHand': 'R', 'thrPos': 'r', 'catHand': 'L', 'catPos': 'l'}]
+                    ]
+                };
 
-                var data2 = [
-                    { col0: 'ssBase', col1: 3, col2: 3, col3: 3, col4: 4},
-                    { col0: 'thrHand', col1: 'R', col2: 'L', col3: 'de', col4: 'L' },
-                    { col0: 'thrPos', col1: 'r', col2: 'gf', col3: 'de', col4: 'center'},
-                ];
+                Colonnes3 = {
+                    name: 'colonnes 3 balles',
+                    properties: ['ssTime', 'ssBase', 'thrHand', 'thrPos', 'catHand', 'catPos'],
+                    time: [
+                        [
+                            {'ssTime': 1, 'ssBase': 4, 'thrHand': 'R', 'thrPos': 'c', 'catHand': 'R', 'catPos': 'c'},
+                            {'ssTime': 1, 'ssBase': 4, 'thrHand': 'L', 'thrPos': 'c', 'catHand': 'L', 'catPos': 'c'}
+                        ],
+                        [
+                            {'ssTime': 4, 'ssBase': 1, 'thrHand': 'R', 'thrPos': 'r', 'catHand': 'L', 'catPos': 'l'},
+                            {'ssTime': 2, 'ssBase': 1, 'thrHand': 'R', 'thrPos': 'r', 'catHand': 'L', 'catPos': 'l'}
+                        ]
+                    ]
+                };
 
-                var columns = [
-                    {field: 'col0', label: ' '},
-                    {field: 'col1', label: 'Time 1'},
-                    {label: 'Time 2', children: [
-                            {field: 'col2', label: 'throw 1'},
-                            {field: 'col3', label: 'throw 2'}
-                        ]},
-                ];
-
-                var columns2 = [
-                    {field: 'col0', label: ' '},
-                    {field: 'col1', label: 'Time 1'},
-                    {label: 'Time 2', children: [
-                            {field: 'col2', label: 'throw 1'},
-                            {field: 'col3', label: 'throw 2'}
-                        ]},
-                    {field: 'col4', label: 'Time 3'},
-                ];
-
-                // Create a new constructor by mixing in the components
-                var CustomGrid = declare([ Grid, Keyboard, Selection, CompoundColumns ]);
-         
-                // Now, create an instance of our custom grid which
-                // have the features we added!
-                var grid = new CustomGrid({
-                    store: new Memory({data: data2}),
-                    columns: columns2,
-                }, 'grid');
-                grid.startup();
+                trickView.loadJson(Colonnes3);
+                h = trickView.toHtml();
+                Builder.place(h, "trick");
 
                 On(Dom.byId('btnAddTime'), 'click', function() {
-                    console.log('addTime');
-                    grid.set('columns', columns );
+                    tk.addTime();
                 });
 			});
 		</script>
@@ -83,7 +70,7 @@
             <button id="btnAddTime" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-star"></span>Add time 
             </button>
-            <div id="grid"></div>
+            <div id="trick"></div>
         </div>
 
         <!-- build:js scripts/vendor.js -->

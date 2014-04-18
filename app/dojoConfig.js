@@ -2,7 +2,7 @@
 var dojoConfig = {
 	async: true,
     parseOnLoad: true,
-	baseUrl: 'bower_components/',
+	baseUrl: '',
 	tlmSiblingOfDojo: false,
 	isDebug: true,
 	packages: [
