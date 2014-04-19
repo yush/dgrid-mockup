@@ -4,13 +4,14 @@
   "dependencies": {
     "bootstrap": "~3.0.3",
     "jquery": "~1.11.0",
-      "dojo": "~1.9.1",
-      "dijit": "~1.9.1",
-      "dgrid": "~0.3.10",
-      "util": "dojo-util#",
-	  "xstyle": "~0.2.1",
-	  "put-selector": "~0.3.5"	  
-
+    "dojo": "~1.9.1",
+    "dijit": "~1.9.1",
+    "dgrid": "~0.3.10",
+    "util": "dojo-util#",
+    "xstyle": "~0.2.1",
+    "put-selector": "~0.3.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "~1.18.2"
+  }
 }

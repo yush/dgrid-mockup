@@ -10,12 +10,13 @@ define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bow
 
         addTime: function() {
             console.log('addThrow');
-            var aThrow = [];
+            var aThrow = {};
             for(var i=0; i < this.properties.length; i++) {
-                aThrow[this.properties[i]] = '';
+                aThrow[this.properties[i]] = ' ';
             }
-            this.time.push([]); 
-            this.time[this.time.length].push(aThrow);
+            var arr = new Array();
+            arr.push(aThrow);
+            this.time.push(arr); 
         },
 
         
