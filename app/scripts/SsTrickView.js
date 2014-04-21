@@ -1,4 +1,4 @@
-define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bower_components/dojo/dom-construct'], function(declare, dom, Build, SsThrowView){
+define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declare, dom, Build, SsThrowView){
     'use strict';
     /*
      * Principe fonctionnement:
@@ -23,7 +23,7 @@ define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bow
         },
 
         toHtml: function() {
-            var grid = Build.create('table', {class: 'table table-bordered'});
+            var grid = Build.create('table', {class: 'table-bordered'});
 
             // cree le header
             var header = Build.create('thead', {innerHTML: '<tr></tr>'});
@@ -32,11 +32,11 @@ define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bow
             var colHeader = Build.create('th', {innerHTML: 'Prop'}); 
             Build.place(colHeader, header);
     
-            // crée la colonne Time
+            // crée l'entete Time
             for (var iTime =0; iTime < this.data.time.length; iTime++) {
                 var aTime = this.data.time[iTime];
                 colHeader = Build.create('th', { 
-                        innerHTML: 'Time '+iTime,
+                        innerHTML: '<td>Time '+iTime+'<button id="addThrow-'+iTime+' type="button" class="btn">add Throw</button></td>',
                         colspan: aTime.length
                     });
                 Build.place(colHeader, header, 'last');
@@ -47,12 +47,13 @@ define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bow
             Build.place(tbody, grid);
             var listProp = this.data.properties;
             for (var i =0; i < listProp.length; i++) {
-                var h = '';
+                var propName = listProp[i];
+                var h = '<td>'+propName+'</td>';
                 for (var c = 0; c < this.data.time.length; c++) {
                     var aTime =  this.data.time[c];
                     for (var idxThrow = 0; idxThrow < aTime.length; idxThrow++) {
                         var aThrow = aTime[idxThrow]; 
-                        h = h+'<td><input data-dojo-type="dijit/form/comboBox" value="'+aThrow[i]+'"></input></td>';
+                        h = h+'<td><input data-dojo-type="dijit/form/ComboBox" value="'+aThrow[propName]+'"></input></td>';
                     }
                 }
                 var row = Build.create('tr', {innerHTML: h});

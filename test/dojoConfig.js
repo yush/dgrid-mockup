@@ -2,13 +2,9 @@
 var dojoConfig = {
 	async: true,
     parseOnLoad: true,
-	baseUrl: 'js/',
+	baseUrl: '',
 	tlmSiblingOfDojo: false,
 	isDebug: true,
-    modulePaths: {
-        'SsTrickView': 'js',
-        
-    },
 	packages: [
 		'dojo',
 		'dijit',

@@ -1,4 +1,4 @@
-define(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom', 'bower_components/dojo/dom-construct'], function(declare, dom, Build, SsThrow){
+define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declare, dom, Build, SsThrow){
     'use strict';
 
     return declare(null, {

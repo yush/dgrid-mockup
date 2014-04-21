@@ -10,6 +10,7 @@
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/dijit/themes/claro/claro.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -17,7 +18,7 @@
         <!-- endbuild -->
        	<script src="dojoConfig.js"></script>
         <!-- bower:js -->
-        <script src="../bower_components/dojo/dojo.js"></script>
+        <script src="js/dojo/dojo.js"></script>
         <!-- endbower -->
     </head>
     <body class="claro bootstrap">
@@ -26,9 +27,9 @@
         <![endif]-->
 
 		<script>
-		require(['bower_components/dojo/_base/declare', 'bower_components/dojo/dom-construct', 'bower_components/dojo/dom', 'bower_components/dojo/on', 'scripts/SsTrickView', 'scripts/SsTrick', 'bower_components/dojo/domReady!'],
-            function(declare, Builder, Dom, On, TrickView, Trick){
-                //trickView = new TrickView(); 
+		require(['dojo/_base/declare', 'dojo/dom-construct', 'dojo/dom', 'dojo/on', 'dojo/parser', 'scripts/SsTrickView', '../app/scripts/SsTrick', 'dijit/form/ComboBox', 'dojo/domReady!'],
+            function(declare, Builder, Dom, On, Parser, TrickView, Trick){
+                trickView = new TrickView(); 
                 trickTest = new TrickView();
                 tk = new Trick();
 
@@ -56,15 +57,18 @@
                     ]
                 };
 
-                //trickView.loadJson(Colonnes3);
-                //h = trickView.toHtml();
-                //Builder.place(h, "trick");
+                //trickView.loadJson(Cascade);
+                trickView.loadJson(Colonnes3);
+                h = trickView.toHtml();
+                Builder.place(h, "trick");
 
                 On(Dom.byId('btnAddTime'), 'click', function() {
                     tk.addTime();
                     trickTest.loadJson(tk);
                     h = trickTest.toHtml();
-                    Builder.place(h, "trick");
+                    domTrick = Dom.byId("trick");
+                    Builder.place(h, domTrick, "only");
+                    Parser.parse(domTrick);
                 });
 			});
 		</script>
