@@ -9,8 +9,8 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="../bower_components/dijit/themes/claro/claro.css" />
+        <link rel="stylesheet" href="/scripts/vendor/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/scripts/vendor/dijit/themes/claro/claro.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -18,7 +18,7 @@
         <!-- endbuild -->
        	<script src="dojoConfig.js"></script>
         <!-- bower:js -->
-        <script src="js/dojo/dojo.js"></script>
+        <script src="scripts/vendor/dojo/dojo.js"></script>
         <!-- endbower -->
     </head>
     <body class="claro bootstrap">
@@ -27,7 +27,7 @@
         <![endif]-->
 
 		<script>
-		require(['dojo/_base/declare', 'dojo/dom-construct', 'dojo/dom', 'dojo/on', 'dojo/parser', 'scripts/SsTrickView', '../app/scripts/SsTrick', 'dijit/form/ComboBox', 'dojo/domReady!'],
+		require(['dojo/_base/declare', 'dojo/dom-construct', 'dojo/dom', 'dojo/on', 'dojo/parser', 'jtricks/SsTrickView', 'jtricks/SsTrick', 'dijit/form/ComboBox', 'dojo/domReady!'],
             function(declare, Builder, Dom, On, Parser, TrickView, Trick){
                 trickView = new TrickView(); 
                 trickTest = new TrickView();

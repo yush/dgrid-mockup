@@ -2,18 +2,12 @@
 var dojoConfig = {
 	async: true,
     parseOnLoad: true,
-	baseUrl: 'js/',
+	baseUrl: 'scripts/',
 	tlmSiblingOfDojo: false,
 	isDebug: true,
-    modulePaths: {
-        'SsTrickView': 'js',
-        
-    },
 	packages: [
-		'dojo',
-		'dijit',
-		'put-selector',
-		'xstyle',
-		'dgrid'
+        { name: "dojo", location: "vendor/dojo" },
+        { name: "dijit", location: "vendor/dijit" },
+        { name: "jtricks", location: "jtricks" }
 	]
 };
