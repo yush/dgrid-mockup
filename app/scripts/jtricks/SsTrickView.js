@@ -53,6 +53,7 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declar
                     var aTime =  this.data.time[c];
                     for (var idxThrow = 0; idxThrow < aTime.length; idxThrow++) {
                         var aThrow = aTime[idxThrow]; 
+                        //TODO: http://dojo-toolkit.33424.n3.nabble.com/Creating-widgets-programmatically-td3771022.html
                         h = h+'<td><input data-dojo-type="dijit/form/ComboBox" value="'+aThrow[propName]+'"></input></td>';
                     }
                 }
