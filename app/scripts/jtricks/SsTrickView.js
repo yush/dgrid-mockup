@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declare, dom, Build, SsThrowView){
+define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/ComboBox', 'dijit/form/TextBox'], function(declare, dom, Build, ComboBox, Text, SsThrowView ){
     'use strict';
     /*
      * Principe fonctionnement:
@@ -51,14 +51,20 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declar
                 var h = '<td>'+propName+'</td>';
                 for (var c = 0; c < this.data.time.length; c++) {
                     var aTime =  this.data.time[c];
+                    var row = Build.create('tr');
                     for (var idxThrow = 0; idxThrow < aTime.length; idxThrow++) {
                         var aThrow = aTime[idxThrow]; 
-                        //TODO: http://dojo-toolkit.33424.n3.nabble.com/Creating-widgets-programmatically-td3771022.html
-                        h = h+'<td><input data-dojo-type="dijit/form/ComboBox" value="'+aThrow[propName]+'"></input></td>';
+                        var cell = Build.create('td');
+                        Build.place(cell, row);
+                        var combo= new Text({
+                            name: "firstname",
+                            value: "" /* no or empty value! */,
+                            placeHolder: "type in your name"
+                        });
+                        Build.place(combo.domNode, cell);
                     }
+                    Build.place(row, tbody, 'last');
                 }
-                var row = Build.create('tr', {innerHTML: h});
-                Build.place(row, tbody, 'last');
             }
             return grid;
         },
