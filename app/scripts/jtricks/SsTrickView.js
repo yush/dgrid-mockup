@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/ComboBox', 'dijit/form/TextBox'], function(declare, dom, Build, ComboBox, Text, SsThrowView ){
+define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/ComboBox', 'dijit/form/TextBox', 'dojo/query', 'dojo/on'], function(declare, dom, Build, ComboBox, Text, Query, On, SsThrowView ){
     'use strict';
     /*
      * Principe fonctionnement:
@@ -22,7 +22,7 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
             this.data = aDataTrick;
         },
 
-        toHtml: function() {
+        toHtml: function(nodeName) {
             var grid = Build.create('table', {class: 'table-bordered'});
 
             // cree le header
@@ -36,8 +36,8 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
             for (var iTime =0; iTime < this.data.time.length; iTime++) {
                 var aTime = this.data.time[iTime];
                 colHeader = Build.create('th', { 
-                        innerHTML: '<td>Time '+iTime+'<button id="addThrow-'+iTime+' type="button" class="btn">add Throw</button></td>',
-                        colspan: aTime.length
+                        innerHTML: '<td>Time '+iTime+'<button id="addThrow-'+iTime+' type="button" class="btnAddThrow")">add Throw</button></td>',
+                        colspan: aTime.length,
                     });
                 Build.place(colHeader, header, 'last');
             }
@@ -47,27 +47,49 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
             Build.place(tbody, grid);
             var listProp = this.data.properties;
             for (var i =0; i < listProp.length; i++) {
+                // pour chaque propriete, on crée une ligne
+                var row = Build.create('tr', {innerHTML: h});
                 var propName = listProp[i];
                 var h = '<td>'+propName+'</td>';
+                // pour chaque temps
                 for (var c = 0; c < this.data.time.length; c++) {
                     var aTime =  this.data.time[c];
-                    var row = Build.create('tr');
+                    // pour chaque lancer (> 1 pour synchrone ou multiplex )
                     for (var idxThrow = 0; idxThrow < aTime.length; idxThrow++) {
                         var aThrow = aTime[idxThrow]; 
                         var cell = Build.create('td');
-                        Build.place(cell, row);
                         var combo= new Text({
-                            name: "firstname",
+                            name: propName+c, 
                             value: "" /* no or empty value! */,
                             placeHolder: "type in your name"
                         });
-                        Build.place(combo.domNode, cell);
+                        Build.place(combo.domNode, cell, 'last');
+                        Build.place(cell, row);
                     }
-                    Build.place(row, tbody, 'last');
                 }
+                Build.place(row, tbody, 'last');
             }
+
+            var domTrick = dom.byId(nodeName);
+            Build.place(grid, domTrick, "only");
+            this.connectAddThrowEvents();
             return grid;
         },
+
+        connectAddThrowEvents: function() {
+            var listBt = Query(".btnAddThrow");
+            listBt.forEach(function(n) {
+                On(n, 'click', function() {
+                    var tTime = listBt.indexOf(n);
+                    console.log(n);
+                    tk.addThrow(tTime);
+                    trickTest.loadJson(tk);
+                    h = trickTest.toHtml("trick");
+                    //domTrick = Dom.byId("trick");
+                    //Builder.place(h, domTrick, "only");
+                });
+            });
+        }, 
 
     });
 });

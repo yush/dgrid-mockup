@@ -9,7 +9,7 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declar
         },
 
         addTime: function() {
-            console.log('addThrow');
+            console.log('addTime');
             var aThrow = {};
             for(var i=0; i < this.properties.length; i++) {
                 aThrow[this.properties[i]] = ' ';
@@ -19,6 +19,16 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declar
             this.time.push(arr); 
         },
 
+        addThrow: function(idxTime) {
+            console.log('addThrow '+idxTime);
+            // pour le temps correspondant au bouton, on cree un nouveau lancer, que l'on ajoute
+            var currentThrow = this.time[idxTime];
+            var aThrow = {};
+            for(var i=0; i < this.properties.length; i++) {
+                aThrow[this.properties[i]] = ' ';
+            }
+            currentThrow.push(aThrow);
+        }
         
     });
 });

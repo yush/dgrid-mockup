@@ -27,8 +27,8 @@
         <![endif]-->
 
 		<script>
-		require(['dojo/_base/declare', 'dojo/dom-construct', 'dojo/dom', 'dojo/on', 'dojo/parser', 'jtricks/SsTrickView', 'jtricks/SsTrick', 'dijit/form/ComboBox', 'dojo/domReady!'],
-            function(declare, Builder, Dom, On, Parser, TrickView, Trick){
+		require(['dojo/_base/declare', 'dojo/dom-construct', 'dojo/dom', 'dojo/on', 'dojo/parser', 'jtricks/SsTrickView', 'jtricks/SsTrick', 'dojo/query', 'dojo/domReady!'],
+            function(declare, Builder, Dom, On, Parser, TrickView, Trick, Query){
                 trickView = new TrickView(); 
                 trickTest = new TrickView();
                 tk = new Trick();
@@ -59,17 +59,15 @@
 
                 //trickView.loadJson(Cascade);
                 trickView.loadJson(Colonnes3);
-                h = trickView.toHtml();
+                h = trickView.toHtml("trick");
                 Builder.place(h, "trick");
 
                 On(Dom.byId('btnAddTime'), 'click', function() {
                     tk.addTime();
                     trickTest.loadJson(tk);
-                    h = trickTest.toHtml();
-                    domTrick = Dom.byId("trick");
-                    Builder.place(h, domTrick, "only");
-                    Parser.parse(domTrick);
+                    trickTest.toHtml("trick");
                 });
+               
 			});
 		</script>
 
