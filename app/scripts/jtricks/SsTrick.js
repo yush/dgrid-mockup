@@ -11,7 +11,8 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct'], function(declar
         addTime: function() {
             console.log('addTime');
             var aThrow = {};
-            for(var i=0; i < this.properties.length; i++) {
+            aThrow['ssTime'] = this.time.length;
+            for(var i=1; i < this.properties.length; i++) {
                 aThrow[this.properties[i]] = ' ';
             }
             var arr = new Array();

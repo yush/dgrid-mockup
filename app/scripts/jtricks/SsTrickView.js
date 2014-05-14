@@ -48,9 +48,9 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
             var listProp = this.data.properties;
             for (var i =0; i < listProp.length; i++) {
                 // pour chaque propriete, on crée une ligne
-                var row = Build.create('tr', {innerHTML: h});
                 var propName = listProp[i];
                 var h = '<td>'+propName+'</td>';
+                var row = Build.create('tr', {innerHTML: h});
                 // pour chaque temps
                 for (var c = 0; c < this.data.time.length; c++) {
                     var aTime =  this.data.time[c];
@@ -59,15 +59,18 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
                         var aThrow = aTime[idxThrow]; 
                         var cell = Build.create('td');
                         var combo= new Text({
-                            name: propName+c, 
+                            name: propName+'-'+c+'-'+idxThrow, 
                             value: aThrow[propName] /* no or empty value! */,
-                            placeHolder: "type in your name"
+                            placeHolder: "type in"
                         });
                         Build.place(combo.domNode, cell, 'last');
                         Build.place(cell, row);
-                        On(combo, "change", function(e){
-                            dojo.hitch(aThrow, "length");
-                            console.info(this.get("value"));
+                        On(combo, 'change', function(e){
+                            var name = this.get("name");
+                            var newValue = this.get("value");
+                            var arr = name.split('-');
+                            console.info(arr);
+                            trickTest.updateValue(arr[0], arr[1], arr[2], newValue);
                         });
                     }
                 }
@@ -78,6 +81,10 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
             Build.place(grid, domTrick, "only");
             this.connectAddThrowEvents();
             return grid;
+        },
+
+        updateValue: function(prop, iTime, iThrow, newValue) {
+            this.data.time[iTime][iThrow][prop]= newValue;
         },
 
         connectAddThrowEvents: function() {
