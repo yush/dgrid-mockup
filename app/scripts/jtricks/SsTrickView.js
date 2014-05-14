@@ -60,11 +60,15 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
                         var cell = Build.create('td');
                         var combo= new Text({
                             name: propName+c, 
-                            value: "" /* no or empty value! */,
+                            value: aThrow[propName] /* no or empty value! */,
                             placeHolder: "type in your name"
                         });
                         Build.place(combo.domNode, cell, 'last');
                         Build.place(cell, row);
+                        On(combo, "change", function(e){
+                            dojo.hitch(aThrow, "length");
+                            console.info(this.get("value"));
+                        });
                     }
                 }
                 Build.place(row, tbody, 'last');
@@ -85,8 +89,6 @@ define(['dojo/_base/declare', 'dojo/dom', 'dojo/dom-construct', 'dijit/form/Comb
                     tk.addThrow(tTime);
                     trickTest.loadJson(tk);
                     h = trickTest.toHtml("trick");
-                    //domTrick = Dom.byId("trick");
-                    //Builder.place(h, domTrick, "only");
                 });
             });
         }, 
